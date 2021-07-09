@@ -1,0 +1,24 @@
+#viewDiv {
+    flex-grow: 1;
+    /* padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%; */
+    }
+
+body {
+    height: 100vh;
+    width: 100%;
+}
+
+.stuff {
+    display: flex;
+    /* flex-direction: column; */
+    width: calc(100% - 1em);
+    height: calc(100% - 1em);
+
+}
+
+.otter {
+    max-width: 600px;
+}
