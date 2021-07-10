@@ -1,5 +1,4 @@
-// const viewDiv = document.getElementById('viewDiv')
-
+// esri API requirments
 require([
     "esri/config",
     "esri/Map",
@@ -8,7 +7,7 @@ require([
     "esri/Graphic",
     "esri/layers/GraphicsLayer"
 
-    ], function (esriConfig, Map, SceneView, Graphic, GraphicsLayer) {
+], function (esriConfig, Map, SceneView, Graphic, GraphicsLayer) {
 
     esriConfig.apiKey = "AAPK2ecbffa6b04c4595986f15d7b92b786360Vh3K-cqrwl9Lkxt35QsY601Zr-1ZKleqAXXTL-KMOrsqWOKsTFOz-P2vf8-Bpc";
 
@@ -20,7 +19,6 @@ require([
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
-
     const simpleMarkerSymbol = {
         type: "simple-marker",
         color: [226, 119, 40],  // Orange
@@ -30,21 +28,37 @@ require([
         }
     };
 
+    // earthquake details with point clicked
+    const popupTemplate = {
+        title: "{Name}",
+        content: "{Description}"
+    }
 
-    function addPoint(longitude, latitude) {
+    // API method to draw points
+    function addPoint(longitude, latitude, title, time) {
+        // popupTemplate atts
+        const attributes = {
+            Name: title,
+            Description: new Date(time)
+        }
+        // point object (marker)
         const point = { //Create a point
             type: "point",
             longitude: longitude,
             latitude: latitude
         };
+        // API new graphic object
         const pointGraphic = new Graphic({
             geometry: point,
-            symbol: simpleMarkerSymbol
+            symbol: simpleMarkerSymbol,
+            attributes: attributes,
+            popupTemplate: popupTemplate
         });
         graphicsLayer.add(pointGraphic);
     }
-    
-    const view = new SceneView({
+
+    // main container/frame for the map (required)
+    new SceneView({
         container: "viewDiv",
         map: map,
         camera: {
@@ -56,58 +70,45 @@ require([
             tilt: 10
         }
     });
-
-    // document.addEventListener('DOMContentLoaded', function () {
-        fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=10')
+    // erathquake API fetch to get data
+    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=10')
         .then((res) => {
             return res.json();
         })
-        .then(function(data) {
-            console.log(data.features)
-            let card = document.querySelector('.info-bar')
-            let window = document.querySelector('.card-window')
-            for (let index = 0; index < 5; index++) {
-                window.appendChild(card)
+        .then((data) => {
+            const window = document.querySelector('.card-window')
+            // loopthing throught data
+            data.features.forEach(feature => {
+                // creating a new card for each earthquake (feature) with class 'info-bar'
+                let card = document.createElement('div')
+                card.classList.add('info-bar')
+                // creating card inner elements
                 card.innerHTML = `
                 <div class="card-body">
-                <h2 class="card-title">Seismic Info</h2>
+                <h3 class="card-title">${feature.properties.title}</h3>
                 <h4>Time</h4>
-                <p>${data.features[index].properties.time}</p>
+                <p>${new Date(feature.properties.time)}</p>
                 <h4>Mag</h4>
-                <p>${data.features[index].properties.mag}</p>
+                <p>${feature.properties.mag}</p>
                 <h4>Long</h4>
-                <p>${data.features[index].geometry.coordinates[0]}</p>
+                <p>${feature.geometry.coordinates[0]}</p>
                 <h4>Lat</h4>
-                <p>${data.features[index].geometry.coordinates[1]}</p>
+                <p>${feature.geometry.coordinates[1]}</p>
                 <h4>Depth</h4>
-                <p>${data.features[index].geometry.coordinates[2]}</p>
+                <p>${feature.geometry.coordinates[2]}</p>
                 </div>`
-            }
-            for (let index = 0; index < data.features.length; index++) {
-                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1])
-                
-            }
-    
-    });
-    // });
-
+                // feature.properties.time returns time in number format, hence we instantiate a new date obj
+                // add to container
+                window.appendChild(card)
+                // calling the API addPoint method
+                addPoint(
+                    // coordinates
+                    feature.geometry.coordinates[0],
+                    feature.geometry.coordinates[1],
+                    // title and time (for pop up)
+                    feature.properties.title,
+                    feature.properties.time
+                )
+            });
+        });
 });
-
-
-
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function () {
-
-
-//     fetch("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02")
-//         .then(function (response) {
-//             return response.json();
-//         })
-//         .then(function (data) {
-//             console.log(data.features)
-
-//         });
-// });
