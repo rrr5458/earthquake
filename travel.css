@@ -144,8 +144,8 @@ body {
 .globe {
     background-color: red;
     margin: 0 auto;
-    height: 800px;
-    width: 800px;
+    height: 1600px;
+    width: 1600px;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
@@ -154,8 +154,8 @@ body {
 
 .viewDiv {
     background-color: white;
-    height: 650px;
-    width: 650px;
+    height: 1450px;
+    width: 1450px;
     background-image: url(EQ\ BG.jpeg);
     background-position: center;
 }
