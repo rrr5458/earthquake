@@ -20,8 +20,7 @@ require([
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
-
-    const simpleMarkerSymbol = {
+    let simpleMarkerSymbol = {
         type: "simple-marker",
         color: [226, 119, 40],  // Orange
         outline: {
@@ -30,18 +29,42 @@ require([
         }
     };
 
+    // function enlargePoint(mag) {
+    //     console.log('hello')
+    //     const simpleMarkerSymbol = {
+    //         type: "simple-marker",
+    //         color: [226, 119, 40],  // Orange
+    //         outline: {
+    //             color: [255, 255, 255], // White
+    //             width: mag
+    //         }
+    //     };
+    //     console.log(simpleMarkerSymbol.outline.width)
+    // }
 
-    function addPoint(longitude, latitude, title, time) {
+
+    function addPoint(longitude, latitude, mag) {
         const point = { //Create a point
             type: "point",
             longitude: longitude,
             latitude: latitude,
 
         };
-        const attributes = {
-            Name: title,
-            Description: new Date(time)
-        }
+
+        const simpleMarkerSymbol = {
+            type: "simple-marker",
+            color: [226, 119, 40],  // Orange
+            size : mag,
+            outline: {
+                color: [255, 255, 255], // White
+                width: 1
+            }
+        };
+        console.log(simpleMarkerSymbol.outline.width)
+        // const attributes = {
+        //     Name: title,
+        //     Description: new Date(time)
+        // }
         const pointGraphic = new Graphic({
             geometry: point,
             symbol: simpleMarkerSymbol
@@ -129,7 +152,7 @@ function renderSlide (card1, card2, card3) {
             return res.json();
         })
         .then(function(data) {
-            console.log(data.features)
+            
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
                 for (let index = 0; index < 12; index += 3) {
@@ -137,24 +160,25 @@ function renderSlide (card1, card2, card3) {
                 }
             document.querySelector('.carousel-item').classList.add('active')
             for (let index = 0; index < data.features.length; index++) {
-                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1])
+                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties.mag * 10)
 
             }
+            console.log(data.features)
+            // enlargePoint(15)
         })
         document.addEventListener('click', function(e) {
             if(e.target.classList.contains('btn-primary')) {
                 const longitude = e.target.dataset.longitude;
                 const latitude = e.target.dataset.latitude;
                 moveView(longitude, latitude)
+                addPoint(
+                    // coordinates
+                    longitude,
+                    latitude,
+                    // title and time (for pop up)
+                    // feature.properties.title,
+                    // feature.properties.time
+                )
             }
-            console.log(features.geometry.coordinates[0])
-            addPoint(
-                // coordinates
-                feature.geometry.coordinates[0],
-                feature.geometry.coordinates[1],
-                // title and time (for pop up)
-                feature.properties.title,
-                feature.properties.time
-            )
         });
 });
