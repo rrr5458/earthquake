@@ -1,14 +1,17 @@
 // const viewDiv = document.getElementById('viewDiv')
 
 require([
+    
     "esri/config",
     "esri/Map",
     "esri/views/SceneView",
+    "esri/PopupTemplate",
 
     "esri/Graphic",
-    "esri/layers/GraphicsLayer"
+    "esri/layers/GraphicsLayer",
+  
 
-    ], function (esriConfig, Map, SceneView, Graphic, GraphicsLayer) {
+    ], function (esriConfig, Map, SceneView, PopupTemplate, Graphic, GraphicsLayer) {
 
     esriConfig.apiKey = "AAPK2ecbffa6b04c4595986f15d7b92b786360Vh3K-cqrwl9Lkxt35QsY601Zr-1ZKleqAXXTL-KMOrsqWOKsTFOz-P2vf8-Bpc";
 
@@ -30,22 +33,29 @@ require([
         }
     };
 
+  
 
-    function addPoint(longitude, latitude, title, time) {
+    function addPoint(longitude, latitude, properties) {
+        // popupTemplate atts
+      
+
         const point = { //Create a point
             type: "point",
             longitude: longitude,
-            latitude: latitude,
-
+            latitude: latitude
         };
-        const attributes = {
-            Name: title,
-            Description: new Date(time)
-        }
+
+        
         const pointGraphic = new Graphic({
             geometry: point,
-            symbol: simpleMarkerSymbol
+            symbol: simpleMarkerSymbol,
+            attributes: properties,
+            popupTemplate: {
+                title: "{title}",
+                content: "test"
+            }
         });
+        
         graphicsLayer.add(pointGraphic);
     }
     
@@ -95,7 +105,7 @@ function renderCard (data) {
 
             </div>
 
-            <a class="btn btn-primary" data-longitude="${data.geometry.coordinates[0]}" data-latitude="${data.geometry.coordinates[1]}">Show Me</a>
+            <a class="btn btn-primary" data-longitude="${data.geometry.coordinates[0]}" data-latitude="${data.geometry.coordinates[1]}" data-title="${data.properties.title}">Show Me</a>
         </div>
     </div>
 </div>`
@@ -137,7 +147,7 @@ function renderSlide (card1, card2, card3) {
                 }
             document.querySelector('.carousel-item').classList.add('active')
             for (let index = 0; index < data.features.length; index++) {
-                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1])
+                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties)
 
             }
         })
@@ -145,16 +155,14 @@ function renderSlide (card1, card2, card3) {
             if(e.target.classList.contains('btn-primary')) {
                 const longitude = e.target.dataset.longitude;
                 const latitude = e.target.dataset.latitude;
+                const title = e.target.dataset.title
+                const time = e.target.dataset.time
+
                 moveView(longitude, latitude)
+                
             }
-            console.log(features.geometry.coordinates[0])
-            addPoint(
-                // coordinates
-                feature.geometry.coordinates[0],
-                feature.geometry.coordinates[1],
-                // title and time (for pop up)
-                feature.properties.title,
-                feature.properties.time
-            )
+            
+            
+            
         });
 });
