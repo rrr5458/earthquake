@@ -31,12 +31,17 @@ require([
     };
 
 
-    function addPoint(longitude, latitude) {
+    function addPoint(longitude, latitude, title, time) {
         const point = { //Create a point
             type: "point",
             longitude: longitude,
-            latitude: latitude
+            latitude: latitude,
+
         };
+        const attributes = {
+            Name: title,
+            Description: new Date(time)
+        }
         const pointGraphic = new Graphic({
             geometry: point,
             symbol: simpleMarkerSymbol
@@ -44,7 +49,7 @@ require([
         graphicsLayer.add(pointGraphic);
     }
     
-    const view = new SceneView({
+    let view = new SceneView({
         container: "viewDiv",
         map: map,
         camera: {
@@ -56,6 +61,21 @@ require([
             tilt: 10
         }
     });
+    
+    function moveView(longitude, latitude) {
+        let view = new SceneView({
+            container: "viewDiv",
+            map: map,
+            camera: {
+                position: {
+                    x: longitude,
+                    y: latitude,
+                    z: 100000,
+                },
+                tilt: 10
+            }
+        });
+    }
 
 
 
@@ -67,15 +87,15 @@ function renderCard (data) {
         <div class="card-body">
             <h4 class="card-title">${data.properties.title}</h4>
             <div class="earthquake-info">
-                <p class="card-text">Time: ${data.properties.time}</p>
-                <p class="card-text">Lat: ${data.geometry.coordinates[1]}</p>
+                <p class="card-text">Time: ${new Date(data.properties.time)}</p>
                 <p class="card-text">Long: ${data.geometry.coordinates[0]}</p>
+                <p class="card-text">Lat: ${data.geometry.coordinates[1]}</p>
                 <p class="card-text">Mag: ${data.properties.mag}</p>
                 <p class="card-text">Depth: ${data.geometry.coordinates[2]}</p>
 
             </div>
 
-            <a class="btn btn-primary">Show Me</a>
+            <a class="btn btn-primary" data-longitude="${data.geometry.coordinates[0]}" data-latitude="${data.geometry.coordinates[1]}">Show Me</a>
         </div>
     </div>
 </div>`
@@ -116,5 +136,25 @@ function renderSlide (card1, card2, card3) {
                     carousel.innerHTML += renderSlide(data.features[index], data.features[index+1], data.features[index+2] )
                 }
             document.querySelector('.carousel-item').classList.add('active')
+            for (let index = 0; index < data.features.length; index++) {
+                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1])
+
+            }
         })
+        document.addEventListener('click', function(e) {
+            if(e.target.classList.contains('btn-primary')) {
+                const longitude = e.target.dataset.longitude;
+                const latitude = e.target.dataset.latitude;
+                moveView(longitude, latitude)
+            }
+            console.log(features.geometry.coordinates[0])
+            addPoint(
+                // coordinates
+                feature.geometry.coordinates[0],
+                feature.geometry.coordinates[1],
+                // title and time (for pop up)
+                feature.properties.title,
+                feature.properties.time
+            )
+        });
 });
