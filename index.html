@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earthquake map</title>
-    <link rel="stylesheet" href="travel.css">
-    <!-- CSS only -->
+    <title>EQ Tracker</title>
+    <link rel="icon" href="./EQ_Icon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css">
-    <script src="https://js.arcgis.com/4.20/"></script>
+        <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css">
+    <link rel="stylesheet" href="travel.css">
 
 
     <!-- <script>
@@ -48,93 +47,51 @@
 
 <body>
 
+    <div class="container header header-window">
+        <div class="row header-row">
+            <img class="header-image" src="./EQ_Icon.png" alt="EQ Tracker Icon">
+            <p class="header-text">Earthquake Tracker</p>
+            <img class="header-image" src="./EQ_Icon.png" alt="EQ Tracker Icon">
+        </div>
+    </div>
+
+    <div class="container carousel carousel-window">
+        <div class="row carousel-row">
+            <div>
+                <div id="inam" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+
+                        <!-- Attach Slides -->
+                        
+
+
+
+
+                        
+
+                    </div>
+                    <!-- Previous Slide Link -->
+                    <a href="#inam" class="carousel-control-prev" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <!-- Next Slide Link -->
+                    <a href="#inam" class="carousel-control-next" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container globe-window">
-        <div id="viewDiv" class="viewDiv"></div>
-    </div>
-    <div class="container card-window">
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
-        </div>
-
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
-        </div>
-
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
-        </div>
-
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
-        </div>
-
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
-        </div>
-
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
-        </div>
-
-        <div class="card info-bar">Earthquake Info
-            <div class="card-body">
-            <h2 class="card-title">Seismic Info</h2>
-            <h4>Time</h4>
-            <h4>Mag</h4>
-            <h4>Long</h4>
-            <h4>Lat</h4>
-            <h4>Depth</h4>
-        </div>
+        <div class="row globe">
+            <div id="viewDiv" class="viewDiv"></div>
         </div>
     </div>
 
-
-
-
-
-
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://js.arcgis.com/4.20/"></script>
     <script src="./travel.js"></script>
 </body>
 
