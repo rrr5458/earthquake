@@ -1,6 +1,6 @@
 
 body {
-    margin: 20px;
+    margin: 30px;
     display: flex;
     background-color: black;
     flex-wrap: wrap;
@@ -9,6 +9,8 @@ body {
 .container {
     display: flex;
     margin: 0 auto;
+    align-content: center;
+    justify-content: center;
 
     
 }
@@ -17,9 +19,9 @@ body {
 .header {
     min-width: 100vw;
     display: flex;
-    margin: 30px auto;
+    margin: 0 auto;
     color: white;
-    font-family: fantasy;
+    font-family:serif;
     font-weight: bold;
     font-size: 80px;
     align-items: center;
@@ -29,6 +31,7 @@ body {
 
 .header-row {
     flex-wrap: nowrap;
+    margin: 0 auto;
 }
 
 .header-text {
@@ -49,7 +52,7 @@ body {
 .carousel {
     min-width: 50vw;
     min-height: 500px;
-    padding-left: 80px;
+    margin: 0 auto;
 }
 
 .carousel-slide {
@@ -60,14 +63,10 @@ body {
     background-color: black;
     min-width: 65vw;
     height: 30rem;
-    justify-content: center;
-    align-content: center;
+    
+    
 }
 
-.carousel-item {
-    justify-self: center;
-    align-self: center;
-}
 
 .carousel-control-prev {
     width: 30px;
@@ -81,16 +80,17 @@ body {
 
 .carousel-control-prev-icon {
     background-color: red;
-	border-radius: 50px;
+	border-radius: 10px;
 	border-width: 8px;
     
 }
 
 .carousel-control-next-icon {
     background-color: red; 
-	border-radius: 50px;
+	border-radius: 10px;
 	border-width: 8px;
-    outline: white;
+    
+    
 }
 
 /* Cards */
@@ -144,8 +144,8 @@ body {
 .globe {
     background-color: red;
     margin: 0 auto;
-    height: 1600px;
-    width: 1600px;
+    height: 70rem;
+    width: 70rem;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
@@ -154,8 +154,8 @@ body {
 
 .viewDiv {
     background-color: white;
-    height: 1450px;
-    width: 1450px;
+    height: 60rem;
+    width: 60rem;
     background-image: url(EQ\ BG.jpeg);
     background-position: center;
 }
