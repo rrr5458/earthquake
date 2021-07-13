@@ -98,7 +98,7 @@ body {
     flex-wrap: nowrap;
 }
 .card-base{
-    max-width: 50%;
+    max-width: 35%;
 }
 
 .card {
@@ -119,20 +119,21 @@ body {
 
 .card-img-top {
     max-width: 100px;
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
+    padding-top: 15px;
     margin: 0 auto;
 }
 
 .card-body {
     text-align: center;
-    min-height: 350px;
+    min-height: 250px;
 }
 
 .btn {
     margin-top: 5px;
     border-color: black;
 	border-radius: 20px;
-	border-width: 2px;
+	border-width: 1px;
     background-color: red;
 }
 
