@@ -1,6 +1,6 @@
 
 body {
-    margin: 30px;
+    margin-bottom : 30px;
     display: flex;
     background-color: rgb(50, 50, 50);
     flex-wrap: wrap;
@@ -120,7 +120,7 @@ body {
 .card-img-top {
     max-width: 100px;
     padding-bottom: 5px;
-    /* margin: 0 auto; */
+    margin: 0 auto;
 }
 
 .card-body {

@@ -60,7 +60,7 @@ require([
             attributes: properties,
             popupTemplate: {
                 title: "{title}",
-                content: "test"
+                content: "{mag}"
             }
         });
 
