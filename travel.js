@@ -157,7 +157,7 @@ require([
         }
     });
     
-    function moveView(longitude, latitude) {
+    function moveView(longitude, latitude, mag) {
         let view = new SceneView({
             container: "viewDiv",
             map: map,
@@ -170,6 +170,27 @@ require([
                 tilt: 10
             }
         });
+        const point = { //Create a point
+            type: "point",
+            longitude: longitude,
+            latitude: latitude
+        };
+        let simpleMarkerSymbol = {
+            type: "simple-marker",
+            outline: {
+                color: [64,224,208], // Turqoise
+                width: 3
+            }
+        };
+        const pointGraphic = new Graphic({
+            geometry: point,
+            symbol: simpleMarkerSymbol,
+            popupTemplate: {
+                title: "{title}",
+                content: "Magnitude: {mag}"
+            }
+        });
+        graphicsLayer.add(pointGraphic);  
     }
 
 
