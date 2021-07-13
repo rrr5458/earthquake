@@ -14,24 +14,15 @@ require([
 
     esriConfig.apiKey = "AAPK2ecbffa6b04c4595986f15d7b92b786360Vh3K-cqrwl9Lkxt35QsY601Zr-1ZKleqAXXTL-KMOrsqWOKsTFOz-P2vf8-Bpc";
 
+    //map style
     const map = new Map({
         basemap: "arcgis-topographic",
         ground: "world-elevation",
     });
-
+    // ?????? GraphicLayer() is some built-in class/requirement that needs to be intiated for graphics to be put on the map
     const graphicsLayer = new GraphicsLayer();
+    // applied the Graphic layer on the map????????
     map.add(graphicsLayer);
-
-    // let simpleMarkerSymbol = {
-    //     type: "simple-marker",
-    //     color: [226, 119, 40],  // Orange
-    //     outline: {
-    //         color: [255, 255, 255], // White
-    //         width: 1
-    //     }
-    // };
-
-  
 
     function addPoint(longitude, latitude, properties, mag) {
         // popupTemplate atts
@@ -42,9 +33,11 @@ require([
             longitude: longitude,
             latitude: latitude
         };
+        //if statements change color and size based on mag. Mag is multiplied by 5 here because when we call, we multiply by 5 to make dots bigger/more dramatic size differences
         if(mag < 5) { //turns marker orange
 
             console.log('1')
+            //marker properties
             const simpleMarkerSymbol = { 
                 type: "simple-marker",
                 color: [226, 119, 40],  // Orange
@@ -54,7 +47,7 @@ require([
                     width: 1
                 }
             };
-             
+            //idk what Graphic does, but it is required to put down markers
             const pointGraphic = new Graphic({
                 geometry: point,
                 symbol: simpleMarkerSymbol,
@@ -64,6 +57,7 @@ require([
                     content: "Magnitude: {mag}"
                 }
             });
+            //???? also no idk
             graphicsLayer.add(pointGraphic);
         } else if(mag < 12.5 && mag >=5) { //turns marker blue
             console.log('2.5')
@@ -129,19 +123,6 @@ require([
             });
             graphicsLayer.add(pointGraphic);
         }
-        
-        // const pointGraphic = new Graphic({
-        //     geometry: point,
-        //     symbol: simpleMarkerSymbol,
-        //     attributes: properties,
-        //     popupTemplate: {
-        //         title: "{title}",
-        //         content: "test"
-        //     }
-        // });
-
-        
-        // graphicsLayer.add(pointGraphic);
     }
      // main container/frame for the map
     let view = new SceneView({
@@ -156,7 +137,7 @@ require([
             tilt: 10
         }
     });
-    
+    //moves camera and highlights point clicked in carousel
     function moveView(longitude, latitude, mag) {
         let view = new SceneView({
             container: "viewDiv",
@@ -177,12 +158,12 @@ require([
         };
         let simpleMarkerSymbol = {
             type: "simple-marker",
-            outline: {
+            outline: { //changes outline color
                 color: [64,224,208], // Turqoise
                 width: 3
             }
         };
-        const pointGraphic = new Graphic({
+        const pointGraphic = new Graphic({ //trying to have the window pop up
             geometry: point,
             symbol: simpleMarkerSymbol,
             popupTemplate: {
@@ -243,20 +224,19 @@ function renderSlide (card1, card2, card3) {
             return res.json();
         })
         .then(function(data) {
-            
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
                 for (let index = 0; index < 60; index += 3) {
                     carousel.innerHTML += renderSlide(data.features[index], data.features[index+1], data.features[index+2] )
                 }
             document.querySelector('.carousel-item').classList.add('active')
+            //loops through the data to call the the addPoint() above
             for (let index = 0; index < data.features.length; index++) {
                 addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 5)
 
             }
-            // console.log(data.features)
-            // enlargePoint(15)
         })
+        //moves camera on click
         document.addEventListener('click', function(e) {
             if(e.target.classList.contains('btn-primary')) {
                 const longitude = e.target.dataset.longitude;
