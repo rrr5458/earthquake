@@ -1,12 +1,11 @@
 // const viewDiv = document.getElementById('viewDiv')
 
 require([
-    
+    // esri API requirments
     "esri/config",
     "esri/Map",
     "esri/views/SceneView",
     "esri/PopupTemplate",
-
     "esri/Graphic",
     "esri/layers/GraphicsLayer",
   
@@ -37,7 +36,7 @@ require([
     function addPoint(longitude, latitude, properties, mag) {
         // popupTemplate atts
         
-
+    // point object (marker)
         const point = { //Create a point
             type: "point",
             longitude: longitude,
@@ -55,11 +54,12 @@ require([
                     width: 1
                 }
             };
+             
             const pointGraphic = new Graphic({
                 geometry: point,
                 symbol: simpleMarkerSymbol,
-                attributes: properties,
-                popupTemplate: {
+                attributes: properties, 
+                popupTemplate: { // earthquake details with point clicked
                     title: "{title}",
                     content: "Magnitude: {mag}"
                 }
@@ -82,7 +82,7 @@ require([
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
-                    content: "{mag}"
+                    content: "Magnitude: {mag}"
                 }
             });
             graphicsLayer.add(pointGraphic);
@@ -103,7 +103,7 @@ require([
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
-                    content: "{mag}"
+                    content: "Magnitude: {mag}"
                 }
             });
             graphicsLayer.add(pointGraphic);
@@ -124,7 +124,7 @@ require([
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
-                    content: "{mag}"
+                    content: "Magnitude: {mag}"
                 }
             });
             graphicsLayer.add(pointGraphic);
@@ -143,7 +143,7 @@ require([
         
         // graphicsLayer.add(pointGraphic);
     }
-    
+     // main container/frame for the map
     let view = new SceneView({
         container: "viewDiv",
         map: map,
@@ -151,7 +151,7 @@ require([
             position: {
                 x: window * 0.5,
                 y: window * 0.5,
-                z: 50000,
+                z: 25000,
             },
             tilt: 10
         }
@@ -182,11 +182,9 @@ function renderCard (data) {
         <div class="card-body">
             <h4 class="card-title">${data.properties.title}</h4>
             <div class="earthquake-info">
-                <p class="card-text">Time: ${new Date(data.properties.time)}</p>
-                <p class="card-text">Long: ${data.geometry.coordinates[0]}</p>
-                <p class="card-text">Lat: ${data.geometry.coordinates[1]}</p>
-                <p class="card-text">Mag: ${data.properties.mag}</p>
-                <p class="card-text">Depth: ${data.geometry.coordinates[2]}</p>
+                <h6 class="card-text">Time: ${new Date(data.properties.time)}</h6>
+                <p class="card-text">Magnitude: ${data.properties.mag}<br>
+                Depth: ${data.geometry.coordinates[2]} km</p>
 
             </div>
 
@@ -217,7 +215,7 @@ function renderSlide (card1, card2, card3) {
 </div>`
     return slideHtml
 }
-
+    // erathquake API fetch to get data
     // document.addEventListener('DOMContentLoaded', function () {
         fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
@@ -235,7 +233,7 @@ function renderSlide (card1, card2, card3) {
                 addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 5)
 
             }
-            console.log(data.features)
+            // console.log(data.features)
             // enlargePoint(15)
         })
         document.addEventListener('click', function(e) {
