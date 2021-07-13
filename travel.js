@@ -287,7 +287,7 @@ require([
         let convertedLong = toDegreesMinutesAndSeconds(long);
         let cardinalLong = long >= 0 ? 'N' : 'S';
 
-        return convertedLat + ' ' + cardinalLat + '<br>' + convertedLong + ' ' + cardinalLong;
+        return convertedLat + '  ' + cardinalLat + '<br>' + convertedLong + ' ' + cardinalLong;
     }
 
 });
