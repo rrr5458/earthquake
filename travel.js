@@ -1,15 +1,6 @@
 // const viewDiv = document.getElementById('viewDiv')
 
 require([
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    // esri API requirments
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
     "esri/config",
     "esri/Map",
     "esri/views/SceneView",
@@ -33,17 +24,9 @@ require([
 
     function addPoint(longitude, latitude, properties, mag) {
         // popupTemplate atts
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        
-    // point object (marker)
-=======
-=======
->>>>>>> Stashed changes
         let convertedCoordinates = convertDMS(longitude, latitude);
 
 
->>>>>>> Stashed changes
         const point = { //Create a point
             type: "point",
             longitude: longitude,
@@ -165,15 +148,7 @@ require([
 
         // graphicsLayer.add(pointGraphic);
     }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
      // main container/frame for the map
-=======
-
->>>>>>> Stashed changes
-=======
-
->>>>>>> Stashed changes
     let view = new SceneView({
         container: "viewDiv",
         map: map,
@@ -186,16 +161,8 @@ require([
             tilt: 10
         }
     });
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     
     function moveView(longitude, latitude, mag) {
-=======
-=======
->>>>>>> Stashed changes
-
-    function moveView(longitude, latitude) {
->>>>>>> Stashed changes
         let view = new SceneView({
             container: "viewDiv",
             map: map,
@@ -272,9 +239,9 @@ require([
         </div>
     </div>
 </div>`
-        return slideHtml
-    }
-
+    return slideHtml
+}
+    // erathquake API fetch to get data
     // document.addEventListener('DOMContentLoaded', function () {
     fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
