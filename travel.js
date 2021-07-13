@@ -260,7 +260,7 @@ require([
             const title = e.target.dataset.title
             const time = e.target.dataset.time
 
-            moveView(longitude, latitude)
+            moveView(longitude , latitude)
 
         }
     });
