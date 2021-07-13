@@ -2,7 +2,7 @@
 body {
     margin: 30px;
     display: flex;
-    background-color: black;
+    background-color: rgb(50, 50, 50);
     flex-wrap: wrap;
 }
 
@@ -19,9 +19,9 @@ body {
 .header {
     min-width: 100vw;
     display: flex;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     color: white;
-    font-family:serif;
+    font-family: 'Monda', sans-serif;
     font-weight: bold;
     font-size: 80px;
     align-items: center;
@@ -35,7 +35,7 @@ body {
 }
 
 .header-text {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     width: auto;
 }
 
@@ -51,7 +51,7 @@ body {
 
 .carousel {
     min-width: 50vw;
-    min-height: 500px;
+    /* min-height: 400px; */
     margin: 0 auto;
 }
 
@@ -60,11 +60,10 @@ body {
 }
 
 .carousel-inner {
-    background-color: black;
+    background-color: rgb(50, 50, 50);
     min-width: 65vw;
-    height: 30rem;
-    
-    
+    min-height: 15rem;
+
 }
 
 
@@ -105,8 +104,8 @@ body {
 .card {
     background-color: white;
     border-color: red;
-	border-radius: 50px;
-	border-width: 8px;
+	border-radius: 10px;
+	border-width: 1px;
 	/* hover effect + .card:hover */
 	background: #fff;
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
@@ -120,11 +119,13 @@ body {
 
 .card-img-top {
     max-width: 100px;
-    margin: 0 auto;
+    padding-bottom: 5px;
+    /* margin: 0 auto; */
 }
 
 .card-body {
     text-align: center;
+    min-height: 350px;
 }
 
 .btn {
@@ -141,21 +142,24 @@ body {
 .globe-window {
     min-width: 100vw;
 }
+
 .globe {
     background-color: red;
     margin: 0 auto;
-    height: 70rem;
-    width: 70rem;
+    /* height: 70rem;
+    width: 70rem; */
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    
+    /* margin-top: 10px; */
+    border-radius: 5px;
+    border-width: 5px;
+    border-color: red;
 }
 
 .viewDiv {
     background-color: white;
     height: 60rem;
-    width: 60rem;
+    width: 90vw;
     background-image: url(EQ\ BG.jpeg);
     background-position: center;
 }
