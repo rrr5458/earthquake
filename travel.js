@@ -1,12 +1,11 @@
 // const viewDiv = document.getElementById('viewDiv')
 
 require([
-    
+    // esri API requirments
     "esri/config",
     "esri/Map",
     "esri/views/SceneView",
     "esri/PopupTemplate",
-
     "esri/Graphic",
     "esri/layers/GraphicsLayer",
   
@@ -37,7 +36,7 @@ require([
     function addPoint(longitude, latitude, properties, mag) {
         // popupTemplate atts
         
-
+    // point object (marker)
         const point = { //Create a point
             type: "point",
             longitude: longitude,
@@ -55,11 +54,12 @@ require([
                     width: 1
                 }
             };
+             
             const pointGraphic = new Graphic({
                 geometry: point,
                 symbol: simpleMarkerSymbol,
-                attributes: properties,
-                popupTemplate: {
+                attributes: properties, 
+                popupTemplate: { // earthquake details with point clicked
                     title: "{title}",
                     content: "Magnitude: {mag}"
                 }
@@ -143,7 +143,7 @@ require([
         
         // graphicsLayer.add(pointGraphic);
     }
-    
+     // main container/frame for the map
     let view = new SceneView({
         container: "viewDiv",
         map: map,
@@ -215,7 +215,7 @@ function renderSlide (card1, card2, card3) {
 </div>`
     return slideHtml
 }
-
+    // erathquake API fetch to get data
     // document.addEventListener('DOMContentLoaded', function () {
         fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
