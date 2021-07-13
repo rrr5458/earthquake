@@ -23,49 +23,125 @@ require([
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
-    let simpleMarkerSymbol = {
-        type: "simple-marker",
-        color: [226, 119, 40],  // Orange
-        outline: {
-            color: [255, 255, 255], // White
-            width: 1
-        }
-    };
+    // let simpleMarkerSymbol = {
+    //     type: "simple-marker",
+    //     color: [226, 119, 40],  // Orange
+    //     outline: {
+    //         color: [255, 255, 255], // White
+    //         width: 1
+    //     }
+    // };
 
   
 
     function addPoint(longitude, latitude, properties, mag) {
         // popupTemplate atts
-      
+        
 
         const point = { //Create a point
             type: "point",
             longitude: longitude,
             latitude: latitude
         };
+        if(mag < 5) { //turns marker orange
 
-        const simpleMarkerSymbol = {
-            type: "simple-marker",
-            color: [226, 119, 40],  // Orange
-            size : mag,
-            outline: {
-                color: [255, 255, 255], // White
-                width: 1
-            }
-        };
+            console.log('1')
+            const simpleMarkerSymbol = { 
+                type: "simple-marker",
+                color: [226, 119, 40],  // Orange
+                size : mag,
+                outline: {
+                    color: [255, 255, 255], // White
+                    width: 1
+                }
+            };
+            const pointGraphic = new Graphic({
+                geometry: point,
+                symbol: simpleMarkerSymbol,
+                attributes: properties,
+                popupTemplate: {
+                    title: "{title}",
+                    content: "Magnitude : {mag}"
+                }
+            });
+            graphicsLayer.add(pointGraphic);
+        } else if(mag < 12.5 && mag >=5) { //turns marker blue
+            console.log('2.5')
+            let simpleMarkerSymbol = {
+                type: "simple-marker",
+                color: [20, 50, 220],  // Blue
+                size : mag,
+                outline: {
+                    color: [255, 255, 255], // White
+                    width: 1
+                }
+            };
+            const pointGraphic = new Graphic({
+                geometry: point,
+                symbol: simpleMarkerSymbol,
+                attributes: properties,
+                popupTemplate: {
+                    title: "{title}",
+                    content: "{mag}"
+                }
+            });
+            graphicsLayer.add(pointGraphic);
+        } else if(mag < 25 && mag >=12.5) { //turns marker green
+            console.log('2.5 and 5')
+            let simpleMarkerSymbol = {
+                type: "simple-marker",
+                color: [60, 179, 113],  // Green
+                size: mag,
+                outline: {
+                    color: [255, 255, 255], // White
+                    width: 1
+                }
+            };
+            const pointGraphic = new Graphic({
+                geometry: point,
+                symbol: simpleMarkerSymbol,
+                attributes: properties,
+                popupTemplate: {
+                    title: "{title}",
+                    content: "{mag}"
+                }
+            });
+            graphicsLayer.add(pointGraphic);
+        } else if(mag >= 25) { //turns marker red
+            console.log('larger than 5')
+            let simpleMarkerSymbol = {
+                type: "simple-marker",
+                color: [240, 20, 50],  // Red
+                size : mag,
+                outline: {
+                    color: [255, 255, 255], // White
+                    width: 1
+                }
+            };
+            const pointGraphic = new Graphic({
+                geometry: point,
+                symbol: simpleMarkerSymbol,
+                attributes: properties,
+                popupTemplate: {
+                    title: "{title}",
+                    content: "{mag}"
+                }
+            });
+            graphicsLayer.add(pointGraphic);
+        }
         
-        const pointGraphic = new Graphic({
-            geometry: point,
-            symbol: simpleMarkerSymbol,
-            attributes: properties,
-            popupTemplate: {
-                title: "{title}",
-                content: "{mag}"
-            }
-        });
+        // const pointGraphic = new Graphic({
+        //     geometry: point,
+        //     symbol: simpleMarkerSymbol,
+        //     attributes: properties,
+        //     popupTemplate: {
+        //         title: "{title}",
+        //         content: "test"
+        //     }
+        // });
 
         
-        graphicsLayer.add(pointGraphic);
+        // graphicsLayer.add(pointGraphic);
     }
     
     let view = new SceneView({
@@ -143,7 +219,7 @@ function renderSlide (card1, card2, card3) {
 }
 
     // document.addEventListener('DOMContentLoaded', function () {
-        fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=12')
+        fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
             return res.json();
         })
@@ -151,12 +227,12 @@ function renderSlide (card1, card2, card3) {
             
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
-                for (let index = 0; index < 12; index += 3) {
+                for (let index = 0; index < 60; index += 3) {
                     carousel.innerHTML += renderSlide(data.features[index], data.features[index+1], data.features[index+2] )
                 }
             document.querySelector('.carousel-item').classList.add('active')
             for (let index = 0; index < data.features.length; index++) {
-                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 10)
+                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 5)
 
             }
             console.log(data.features)
