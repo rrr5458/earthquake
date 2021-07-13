@@ -61,7 +61,7 @@ require([
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
-                    content: "Magnitude : {mag}"
+                    content: "Magnitude: {mag}"
                 }
             });
             graphicsLayer.add(pointGraphic);
