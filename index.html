@@ -15,41 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Monda:wght@700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="travel.css">
 
-
-    <!-- <script>
-        require([
-            "esri/config",
-            "esri/Map",
-            "esri/views/SceneView"
-        ], function (esriConfig, Map, SceneView) {
-
-            esriConfig.apiKey = "AAPK2ecbffa6b04c4595986f15d7b92b786360Vh3K-cqrwl9Lkxt35QsY601Zr-1ZKleqAXXTL-KMOrsqWOKsTFOz-P2vf8-Bpc";
-
-            const map = new Map({
-                basemap: "arcgis-topographic", //Basemap layer service
-                ground: "world-elevation", //Elevation service
-            });
-
-            const view = new SceneView({
-                container: "viewDiv",
-                map: map,
-                camera: {
-                    position: {
-                        x: -118.808, //Longitude
-                        y: 33.961, //Latitude
-                        z: 2000 //Meters
-                    },
-                    tilt: 75
-                }
-            });
-
-        });
-    </script> -->
-
 </head>
 
 <body>
 
+    <!-- Header Container  -->
     <div class="container header header-window">
         <div class="row header-row">
             <img class="header-image" src="./EQ_Icon.png" alt="EQ Tracker Icon">
@@ -58,6 +28,7 @@
         </div>
     </div>
 
+    <!-- Carousel Container -->
     <div class="container carousel carousel-window">
         <div class="row carousel-row">
             <div>
@@ -67,17 +38,14 @@
                         <!-- Attach Slides -->
 
 
-
-
-
-
-
-                    </div>
-                   
+                        
+                    </div>  <!-- Ends Slides -->
+                    
+                    <!-- Carousel Previous Slide Button -->
                     <a data-bs-target="#inam" class="carousel-control-prev" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                     </a>
-                    
+                    <!-- Carousel Next Slide Button -->
                     <a data-bs-target="#inam" class="carousel-control-next" data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                     </a>
@@ -86,6 +54,7 @@
         </div>
     </div>
 
+    <!-- Esri Map Container -->
     <div class="container globe-window">
         <!-- <div class="row globe"> -->
             <div id="viewDiv" class="viewDiv"></div>
