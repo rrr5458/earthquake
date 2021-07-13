@@ -236,7 +236,7 @@ function renderSlide (card1, card2, card3) {
 
             }
         })
-        //moves camera on click
+        //moves camera on click, will also highlight marker as well
         document.addEventListener('click', function(e) {
             if(e.target.classList.contains('btn-primary')) {
                 const longitude = e.target.dataset.longitude;
