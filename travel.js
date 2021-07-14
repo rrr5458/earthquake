@@ -110,6 +110,7 @@ require([
                 }
             });
         } else if (mag < 34.999 && mag >= 17.495) { //turns marker green
+
             pointGraphic = new Graphic({
                 geometry: point,
                 symbol: greenMarkerSymbol,
@@ -237,27 +238,37 @@ require([
 </div>`
     }
 
+    // Renders a slide with 3 cards as arguments (line 275)
     function renderSlide(card1, card2, card3) {
+        // Each individual slide's Html layout includes the string portion below.
         let slideHtml = `
 <div class="carousel-item">
     <div class="container container-fluid">
         <div class="row card-row">`
+        // When data is passed into the 'card1' parameter, it is rendered in the 
+        // first positon of the 'card-row'
         if (card1) {
             slideHtml += renderCard(card1)
         }
+        // When data is passed into the 'card2' parameter, it is rendered in the 
+        // second positon of the 'card-row'
         if (card2) {
             slideHtml += renderCard(card2)
         }
+        // When data is passed into the 'card3' parameter, it is rendered in the 
+        // third positon of the 'card-row'
         if (card3) {
             slideHtml += renderCard(card3)
         }
-
+        // The ending/closing html is added (+=) to the string and then returned to be 
+        // displayed as the carousel innerHTML(line 275)
         slideHtml += `
         </div>
     </div>
 </div>`
     return slideHtml
 }
+
     // erathquake API fetch to get data
     fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
@@ -275,6 +286,7 @@ require([
             for (let index = 0; index < data.features.length; index++) {
                 addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 7, data.features[index].id)
             }
+
         })
         //triggers removeHighlight() and moveView() when user cliks "See More". 
     document.addEventListener('click', function (e) {
@@ -288,7 +300,7 @@ require([
 
             removeHighlight()
             moveView(longitude , latitude, mag, id)
-           
+        
         
         }
     });
