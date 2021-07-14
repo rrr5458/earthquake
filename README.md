@@ -29,10 +29,10 @@ On the globe, the earthquake results fetched from USGS will be marked by a color
 These color-dots are size-scaled proportionally according to the magnitude of the earthquake and colored to denote the following:
 <pre>
 DOT COLOR       MAGNITUDE of EQ <br>
-Orange          = < 1 <br>
-Blue            = 1 - 2.49 <br>
-Green           = 2.5 - 4.99 <br>
-Red             = > 5 <br>
+Orange          =   < 1 <br>
+Blue            =   1 - 2.49 <br>
+Green           =   2.5 - 4.99 <br>
+Red             =   >= 5 <br>
 </pre>
 
 
@@ -41,7 +41,7 @@ The selected earthquake (via the "Show Me" button) will be displayed with a teal
 ![Teal Marker](TealMarker.png)
 _________
 
-Navigating the Globe Window: Place cursor over globe, hold down left click button, then drag cursor in any direction to rotate the view in desired direction.  To zoom in, click the "+" button in the top left hand corner of the map windown.  To zoom out, click the "-" button 
+Navigating the Globe Window: Place cursor over globe, hold down left click button, then drag cursor in any direction to rotate the view in desired direction.  To zoom in, click the "+" button in the top left hand corner of the map window.  To zoom out, click the "-" button 
 
 While navigating the globe, any earthquake result marked by a color-dot can be clicked.  A popup window will appear to give pertinent information about the selected result. 
 
