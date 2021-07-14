@@ -22,33 +22,64 @@ require([
     //places graphics on map
     map.add(graphicsLayer);
 
-
-    function addPoint(longitude, latitude, properties, mag) {
+    const points = {}
+    function addPoint(longitude, latitude, properties, mag, id) {
         // popupTemplate atts
         let convertedCoordinates = convertDMS(longitude, latitude);
-
 
         const point = { //Create a point
             type: "point",
             longitude: longitude,
             latitude: latitude
         };
+        earthQuakeId = id
+        const orangeMarkerSymbol = { 
+            type: "simple-marker",
+            color: [226, 119, 40],  // Orange
+            size: mag,
+            outline: {
+                color: [255, 255, 255], // White
+                width: 1
+            }
+        
+        };
+        const blueMarkerSymbol = {
+            type: "simple-marker",
+            color: [20, 50, 220],  // Blue
+            size: mag,
+            outline: {
+                color: [255, 255, 255], // White
+                width: 1
+            }
+        };
+
+        const greenMarkerSymbol = {
+            type: "simple-marker",
+            color: [60, 179, 113],  // Green
+            size: mag,
+            outline: {
+                color: [255, 255, 255], // White
+                width: 1
+            }
+        };
+
+        const redMarkerSymbol = {
+            type: "simple-marker",
+            color: [240, 20, 50],  // Red
+            size: mag,
+            outline: {
+                color: [255, 255, 255], // White
+                width: 1
+            }
+        };
         //changes color and size of point based on mag
-        if(mag < 5) { //turns marker orange
+        let pointGraphic;
+        if(mag < 7) { //turns marker orange
             //This will be called with the required Graphic(). Properties of point
-            const simpleMarkerSymbol = { 
-                type: "simple-marker",
-                color: [226, 119, 40],  // Orange
-                size: mag,
-                outline: {
-                    color: [255, 255, 255], // White
-                    width: 1
-                }
-            };
             // ??????? no idea, but it is required for point and popup window
-            const pointGraphic = new Graphic({
+            pointGraphic = new Graphic({
                 geometry: point,
-                symbol: simpleMarkerSymbol,
+                symbol: orangeMarkerSymbol,
                 attributes: properties, 
                 popupTemplate: { // earthquake details with point clicked
                     title: "{title}",
@@ -60,21 +91,12 @@ require([
                     
                 }
             });
-            //adds point properties to point
-            graphicsLayer.add(pointGraphic);
-        } else if (mag < 12.5 && mag >= 5) { //turns marker blue
-            let simpleMarkerSymbol = {
-                type: "simple-marker",
-                color: [20, 50, 220],  // Blue
-                size: mag,
-                outline: {
-                    color: [255, 255, 255], // White
-                    width: 1
-                }
-            };
-            const pointGraphic = new Graphic({
+
+        } else if (mag < 17.495 && mag >= 7) { //turns marker blue
+
+            pointGraphic = new Graphic({
                 geometry: point,
-                symbol: simpleMarkerSymbol,
+                symbol: blueMarkerSymbol,
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
@@ -85,21 +107,12 @@ require([
                     
                 }
             });
-            graphicsLayer.add(pointGraphic);
-        } else if (mag < 25 && mag >= 12.5) { //turns marker green
+        } else if (mag < 34.999 && mag >= 17.495) { //turns marker green
             console.log('2.5 and 5')
-            let simpleMarkerSymbol = {
-                type: "simple-marker",
-                color: [60, 179, 113],  // Green
-                size: mag,
-                outline: {
-                    color: [255, 255, 255], // White
-                    width: 1
-                }
-            };
-            const pointGraphic = new Graphic({
+
+            pointGraphic = new Graphic({
                 geometry: point,
-                symbol: simpleMarkerSymbol,
+                symbol: greenMarkerSymbol,
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
@@ -110,20 +123,11 @@ require([
                     
                 }
             });
-            graphicsLayer.add(pointGraphic);
-        } else if (mag >= 25) { //turns marker red
-            let simpleMarkerSymbol = {
-                type: "simple-marker",
-                color: [240, 20, 50],  // Red
-                size: mag,
-                outline: {
-                    color: [255, 255, 255], // White
-                    width: 1
-                }
-            };
-            const pointGraphic = new Graphic({
+        } else if (mag >= 34.999) { //turns marker red
+
+            pointGraphic = new Graphic({
                 geometry: point,
-                symbol: simpleMarkerSymbol,
+                symbol: redMarkerSymbol,
                 attributes: properties,
                 popupTemplate: {
                     title: "{title}",
@@ -135,7 +139,12 @@ require([
                     
                 }
             });
-            graphicsLayer.add(pointGraphic);
+        }
+        //adds point properties to point
+        graphicsLayer.add(pointGraphic);
+        points[id] = {
+            graphic : pointGraphic,
+            data : {longitude, latitude, properties, mag}
         }
     }
      // main container/frame for the map
@@ -151,8 +160,11 @@ require([
             tilt: 10
         }
     });
+
+    let selectedId = []
     //moves camera and highligths point on button click
-    function moveView(longitude, latitude, mag) {
+    function moveView(longitude, latitude, mag, id) {
+        selectedId.push(id)
         let view = new SceneView({
             container: "viewDiv",
             map: map,
@@ -165,31 +177,44 @@ require([
                 tilt: 10
             }
         });
-        const point = { //Create a point
-            type: "point",
-            longitude: longitude,
-            latitude: latitude
-        };
-        let simpleMarkerSymbol = {
-            type: "simple-marker",
-            outline: {//changes outline of point in order to highliight 
-                color: [64,224,208], // Turqoise
-                width: 3
-            }
-        };
-        //trying to have this popup on click
-        const pointGraphic = new Graphic({
-            geometry: point,
-            symbol: simpleMarkerSymbol,
-            // popupTemplate: {
-            //     title: "{title}",
-            //     content: "Magnitude: {mag}"
-            // }
-        });
-        graphicsLayer.add(pointGraphic);  
-    }
+        points[id].graphic.symbol.outline.width = 4
+        points[id].graphic.symbol.outline.color = [64,224,208]
+        points[id].graphic.symbol.size = mag * 7
+        // const point = { //Create a point
+        //     type: "point",
+        //     longitude: longitude,
+        //     latitude: latitude
+        // };
+        // let simpleMarkerSymbol = {
+        //     type: "simple-marker",
+        //     size: mag * 7,
+        //     outline: {//changes outline of point in order to highliight 
+        //         color: [64,224,208], // Turqoise
+        //         width: 3
+        //     }
+        // };
+        // //trying to have this popup on click
+        // const pointGraphic = new Graphic({
+        //     geometry: point,
+        //     symbol: simpleMarkerSymbol,
+        //     // popupTemplate: {
+        //         //     title: "{title}",
+        //         //     content: "Magnitude: {mag}"
+        //         // }
+        //     });
+        //     graphicsLayer.add(pointGraphic);  
+        }
 
-
+        function removeHighlight () {
+            const keys = Object.keys(points)
+            for (let index = 0; index < keys.length; index++) {
+                points[keys[index]].graphic.symbol.outline.width = 1
+                points[keys[index]].graphic.symbol.outline.color = [255, 255, 255]
+                points[keys[index]].graphic.symbol.size = points[keys[index]].data.mag
+                
+    
+}
+        }
 
 
     function renderCard(data) {
@@ -205,7 +230,7 @@ require([
 
             </div>
 
-            <a class="btn btn-primary" data-longitude="${data.geometry.coordinates[0]}" data-latitude="${data.geometry.coordinates[1]}" data-title="${data.properties.title}">Show Me</a>
+            <a class="btn btn-primary" data-longitude="${data.geometry.coordinates[0]}" data-latitude="${data.geometry.coordinates[1]}" data-title="${data.properties.title}" data-mag="${data.properties.mag}", data-id="${data.id}">Show Me</a>
         </div>
     </div>
 </div>`
@@ -248,10 +273,9 @@ require([
             document.querySelector('.carousel-item').classList.add('active')
             //calls addPoint() for every earthquake
             for (let index = 0; index < data.features.length; index++) {
-                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 5)
-
+                addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 7, data.features[index].id)
             }
-
+            console.log(points)
         })
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('btn-primary')) {
@@ -259,9 +283,13 @@ require([
             const latitude = e.target.dataset.latitude;
             const title = e.target.dataset.title
             const time = e.target.dataset.time
+            const mag = e.target.dataset.mag
+            const id = e.target.dataset.id
 
-            moveView(longitude , latitude)
-
+            removeHighlight()
+            moveView(longitude , latitude, mag, id)
+           
+        
         }
     });
 
