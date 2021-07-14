@@ -41,7 +41,7 @@ The selected earthquake (via the "Show Me" button) will be displayed with a teal
 ![Teal Marker](TealMarker.png)
 _________
 
-Navigating the Globe Window: Place cursor over globe, hold down left click button, then drag cursor in any direction to rotate the view in desired direction.  To zoom in, click the "-" button in the top left hand corner of the map windown.  To zoom out, click the "+" button 
+Navigating the Globe Window: Place cursor over globe, hold down left click button, then drag cursor in any direction to rotate the view in desired direction.  To zoom in, click the "+" button in the top left hand corner of the map windown.  To zoom out, click the "-" button 
 
 While navigating the globe, any earthquake result marked by a color-dot can be clicked.  A popup window will appear to give pertinent information about the selected result. 
 
