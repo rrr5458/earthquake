@@ -28,8 +28,8 @@ On the globe, the earthquake results fetched from USGS will be marked by a color
 
 These color-dots are size-scaled proportionally according to the magnitude of the earthquake and colored to denote the following:
 
-DOT COLOR       MAGNITUDE of EQ
-Orange          = < 1
+DOT COLOR       MAGNITUDE of EQ <br>
+Orange          = < 1 <br>
 Blue            = 1 - 2.49 <br>
 Green           = 2.5 - 4.99 <br>
 Red             = > 5 <br>
