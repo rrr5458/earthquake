@@ -1,5 +1,5 @@
-// const viewDiv = document.getElementById('viewDiv')
 
+//Using AMD to grab modules from esri
 require([
     "esri/config",
     "esri/Map",
@@ -8,21 +8,22 @@ require([
     "esri/Graphic",
     "esri/layers/GraphicsLayer",
 
-
+//All code is contained in this function in order to use the modules as paramters
 ], function (esriConfig, Map, SceneView, PopupTemplate, Graphic, GraphicsLayer) {
 
     esriConfig.apiKey = "AAPK2ecbffa6b04c4595986f15d7b92b786360Vh3K-cqrwl9Lkxt35QsY601Zr-1ZKleqAXXTL-KMOrsqWOKsTFOz-P2vf8-Bpc";
-    //Map() is an API requirement (I think it's a class?). It gives map style
+    //Map() module gives map style
     const map = new Map({
         basemap: "arcgis-topographic",
         ground: "world-elevation",
     });
-    //GraphicsLayer() is required to add points
+    //GraphicsLayer() module is required to add points
     const graphicsLayer = new GraphicsLayer();
     //places graphics on map
     map.add(graphicsLayer);
-
+    //object built in line145 to store point properties and earthquake dataa
     const points = {}
+    //adds points to map using the below parameters
     function addPoint(longitude, latitude, properties, mag, id) {
         // popupTemplate atts
         let convertedCoordinates = convertDMS(longitude, latitude);
@@ -32,7 +33,7 @@ require([
             longitude: longitude,
             latitude: latitude
         };
-        earthQuakeId = id
+        //properties of orange markers
         const orangeMarkerSymbol = { 
             type: "simple-marker",
             color: [226, 119, 40],  // Orange
@@ -43,6 +44,7 @@ require([
             }
         
         };
+        //properties of blue markers
         const blueMarkerSymbol = {
             type: "simple-marker",
             color: [20, 50, 220],  // Blue
@@ -52,7 +54,7 @@ require([
                 width: 1
             }
         };
-
+        //properties of green markers
         const greenMarkerSymbol = {
             type: "simple-marker",
             color: [60, 179, 113],  // Green
@@ -62,7 +64,7 @@ require([
                 width: 1
             }
         };
-
+        //properties of red markers
         const redMarkerSymbol = {
             type: "simple-marker",
             color: [240, 20, 50],  // Red
@@ -72,11 +74,11 @@ require([
                 width: 1
             }
         };
-        //changes color and size of point based on mag
+        //????????
         let pointGraphic;
+        //changes color and size of point based on mag
         if(mag < 7) { //turns marker orange
-            //This will be called with the required Graphic(). Properties of point
-            // ??????? no idea, but it is required for point and popup window
+
             pointGraphic = new Graphic({
                 geometry: point,
                 symbol: orangeMarkerSymbol,
@@ -108,7 +110,6 @@ require([
                 }
             });
         } else if (mag < 34.999 && mag >= 17.495) { //turns marker green
-            
 
             pointGraphic = new Graphic({
                 geometry: point,
@@ -136,18 +137,18 @@ require([
                     <br>
                     ${convertedCoordinates}
                     `,
-                    
                 }
             });
         }
-        //adds point properties to point
+        //adds point properties to points
         graphicsLayer.add(pointGraphic);
+        //builds points object above when addPoints() is called. This will be used in moveView() to remove highlights
         points[id] = {
             graphic : pointGraphic,
             data : {longitude, latitude, properties, mag}
         }
     }
-     // main container/frame for the map
+     // starting container/frame for the map
     let view = new SceneView({
         container: "viewDiv",
         map: map,
@@ -160,11 +161,8 @@ require([
             tilt: 10
         }
     });
-
-    let selectedId = []
     //moves camera and highligths point on button click
     function moveView(longitude, latitude, mag, id) {
-        selectedId.push(id)
         let view = new SceneView({
             container: "viewDiv",
             map: map,
@@ -177,6 +175,7 @@ require([
                 tilt: 10
             }
         });
+        //highlights the selecterd earthquake
         points[id].graphic.symbol.outline.width = 4
         points[id].graphic.symbol.outline.color = [64,224,208]
         points[id].graphic.symbol.size = mag * 7
@@ -204,10 +203,13 @@ require([
         //     });
         //     graphicsLayer.add(pointGraphic);  
         }
-
+        //removes highlight on second click e
         function removeHighlight () {
+            //returns an array of a given object's own property names; keys here = the ids of the earthquakes
             const keys = Object.keys(points)
+            console.log(keys)
             for (let index = 0; index < keys.length; index++) {
+                //outline width was 4 and turqoise, in order to remove it, we set it to 1 and white, like it is orginally after addPoints()
                 points[keys[index]].graphic.symbol.outline.width = 1
                 points[keys[index]].graphic.symbol.outline.color = [255, 255, 255]
                 points[keys[index]].graphic.symbol.size = points[keys[index]].data.mag
@@ -268,7 +270,6 @@ require([
 }
 
     // erathquake API fetch to get data
-    // document.addEventListener('DOMContentLoaded', function () {
     fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
             return res.json();
@@ -285,8 +286,9 @@ require([
             for (let index = 0; index < data.features.length; index++) {
                 addPoint(data.features[index].geometry.coordinates[0], data.features[index].geometry.coordinates[1], data.features[index].properties, data.features[index].properties.mag * 7, data.features[index].id)
             }
-            
+
         })
+        //triggers removeHighlight() and moveView() when user cliks "See More". 
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('btn-primary')) {
             const longitude = e.target.dataset.longitude;

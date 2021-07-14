@@ -1,6 +1,5 @@
-
 body {
-    margin-bottom : 30px;
+    margin-bottom: 30px;
     display: flex;
     background-color: rgb(50, 50, 50);
     flex-wrap: wrap;
@@ -11,8 +10,6 @@ body {
     margin: 0 auto;
     align-content: center;
     justify-content: center;
-
-    
 }
 
 /* Header/Page title */
@@ -21,17 +18,16 @@ body {
     display: flex;
     /* margin: 0 auto; */
     color: white;
-    font-family: 'Monda', sans-serif;
-    font-weight: bold;
-    font-size: 80px;
+    /* font-family: 'Monda', sans-serif; */
+    /* font-size: 4em; */
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
 }
 
 .header-row {
     flex-wrap: nowrap;
     margin: 0 auto;
+    padding-top: 10px;
 }
 
 .header-text {
@@ -46,11 +42,11 @@ body {
     width: 90px;
 }
 
-
 /* Carousel */
 
 .carousel {
-    min-width: 50vw;
+    max-width: 75vw;
+    min-width: 800px;
     /* min-height: 400px; */
     margin: 0 auto;
 }
@@ -63,58 +59,58 @@ body {
     background-color: rgb(50, 50, 50);
     min-width: 65vw;
     min-height: 15rem;
-
+    margin: 0 auto; 
 }
 
 .carousel-control-prev {
     width: 30px;
-    justify-content: center;
+    justify-content: flex-start;
+    /* align-content: center; */
 }
 
 .carousel-control-next {
     width: 30px;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .carousel-control-prev-icon {
     background-color: red;
-	border-radius: 10px;
-	border-width: 8px;
-    
+    border-radius: 10px;
+    border-width: 8px;
 }
 
 .carousel-control-next-icon {
-    background-color: red; 
-	border-radius: 10px;
-	border-width: 8px;
-    
-    
+    background-color: red;
+    border-radius: 10px;
+    border-width: 8px;
 }
-
 
 /* Cards */
 
 .card-row {
     flex-wrap: nowrap;
 }
-.card-base{
+
+.card-base {
     max-width: 35%;
 }
 
 .card {
     background-color: white;
     border-color: red;
-	border-radius: 10px;
-	border-width: 1px;
-	/* hover effect + .card:hover */
-	background: #fff;
-    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
-	transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    border-radius: 10px;
+    border-width: 1px;
+    /* hover effect + .card:hover */
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+    transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+        0.3s box-shadow,
+        0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
 }
 
-.card:hover{
-	transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 .card-img-top {
@@ -132,11 +128,10 @@ body {
 .btn {
     margin-top: 5px;
     border-color: black;
-	border-radius: 20px;
-	border-width: 1px;
+    border-radius: 20px;
+    border-width: 1px;
     background-color: red;
 }
-
 
 /* Globe */
 
@@ -148,7 +143,7 @@ body {
     background-color: red;
     margin: 0 auto;
     /* height: 70rem;
-    width: 70rem; */
+            width: 70rem; */
     justify-content: center;
     align-items: center;
     /* margin-top: 10px; */
@@ -165,3 +160,75 @@ body {
     background-position: center;
 }
 
+@media (max-width: 850px) {
+    .card-img-top {
+        max-width: 75px;
+    }
+
+    .card{
+        max-height: 370px;
+    }
+
+
+}
+
+@media (max-width: 820px) {
+    .card-title {
+        font-size: 16px;
+    }
+
+    .card-text {
+        font-size: 13px;
+    }
+
+    .card{
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 765px) {
+    .card-img-top {
+        display: none;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .card-text {
+        font-size: 14px;
+    }
+
+    .carousel-control-prev {
+        justify-content: flex-end;
+        align-content: center;
+    }
+    
+    .carousel-control-next {
+        justify-content: flex-start;
+        align-content: center;
+    }
+
+    .card{
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 745px) {
+
+    .card-title {
+        font-size: 14px;
+    }
+
+    .card-text {
+        font-size: 12px;
+    }
+
+    .carousel {
+        margin: 0 auto;
+    }
+
+    .card {
+        min-height: 210px;
+    }
+}
