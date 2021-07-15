@@ -161,7 +161,8 @@ require([
             tilt: 10
         }
     });
-    //moves camera and highligths point on button click
+    //moves camera and highlights point on button click
+
     function moveView(longitude, latitude, mag, id) {
         let view = new SceneView({
             container: "viewDiv",
@@ -175,35 +176,15 @@ require([
                 tilt: 10
             }
         });
-        //highlights the selecterd earthquake
+
+        //highlights the selected earthquake
         points[id].graphic.symbol.outline.width = 4
         points[id].graphic.symbol.outline.color = [64,224,208]
         points[id].graphic.symbol.size = mag * 7
-        // const point = { //Create a point
-        //     type: "point",
-        //     longitude: longitude,
-        //     latitude: latitude
-        // };
-        // let simpleMarkerSymbol = {
-        //     type: "simple-marker",
-        //     size: mag * 7,
-        //     outline: {//changes outline of point in order to highliight 
-        //         color: [64,224,208], // Turqoise
-        //         width: 3
-        //     }
-        // };
-        // //trying to have this popup on click
-        // const pointGraphic = new Graphic({
-        //     geometry: point,
-        //     symbol: simpleMarkerSymbol,
-        //     // popupTemplate: {
-        //         //     title: "{title}",
-        //         //     content: "Magnitude: {mag}"
-        //         // }
-        //     });
-        //     graphicsLayer.add(pointGraphic);  
         }
-        //removes highlight on second click e
+
+        //removes highlight on second click
+
         function removeHighlight () {
             //returns an array of a given object's own property names; keys here = the ids of the earthquakes
             const keys = Object.keys(points)
@@ -238,7 +219,9 @@ require([
 </div>`
     }
 
-    // Renders a slide with 3 cards as arguments (line 275)
+
+    // Renders a slide with 3 cards as arguments (line 259)
+
     function renderSlide(card1, card2, card3) {
         // Each individual slide's Html layout includes the string portion below.
         let slideHtml = `
@@ -246,22 +229,24 @@ require([
     <div class="container container-fluid">
         <div class="row card-row">`
         // When data is passed into the 'card1' parameter, it is rendered in the 
-        // first positon of the 'card-row'
+        // first position of the 'card-row'
         if (card1) {
             slideHtml += renderCard(card1)
         }
         // When data is passed into the 'card2' parameter, it is rendered in the 
-        // second positon of the 'card-row'
+        // second position of the 'card-row'
+
         if (card2) {
             slideHtml += renderCard(card2)
         }
         // When data is passed into the 'card3' parameter, it is rendered in the 
-        // third positon of the 'card-row'
+
+        // third position of the 'card-row'
         if (card3) {
             slideHtml += renderCard(card3)
         }
         // The ending/closing html is added (+=) to the string and then returned to be 
-        // displayed as the carousel innerHTML(line 275)
+        // displayed as the carousel innerHTML(line 259)
         slideHtml += `
         </div>
     </div>
@@ -270,7 +255,8 @@ require([
 }
 
     // erathquake API fetch to get data
-    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
+
+    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=3')
         .then((res) => {
             return res.json();
         })
@@ -278,7 +264,7 @@ require([
 
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
-            for (let index = 0; index < 60; index += 3) {
+            for (let index = 0; index < 3; index += 3) {
                 carousel.innerHTML += renderSlide(data.features[index], data.features[index + 1], data.features[index + 2])
             }
             document.querySelector('.carousel-item').classList.add('active')
