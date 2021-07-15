@@ -251,4 +251,8 @@ body {
         padding: 0;
     } 
 
+    .carousel {
+        max-width: 100vw;
+    }
+
 }
