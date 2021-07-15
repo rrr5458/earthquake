@@ -247,7 +247,7 @@ require([
 }
 
     // erathquake API fetch to get data
-    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=3')
+    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
             return res.json();
         })
@@ -255,7 +255,7 @@ require([
 
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
-            for (let index = 0; index < 3; index += 3) {
+            for (let index = 0; index < 60; index += 3) {
                 carousel.innerHTML += renderSlide(data.features[index], data.features[index + 1], data.features[index + 2])
             }
             document.querySelector('.carousel-item').classList.add('active')
