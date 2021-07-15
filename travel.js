@@ -270,7 +270,7 @@ require([
         if (e.target.classList.contains('btn-primary')) {
             const longitude = e.target.dataset.longitude;
             const latitude = e.target.dataset.latitude;
-            const title = e.target.dataset.title
+            const title = e.target.dataset.title;
             const time = e.target.dataset.time
             const mag = e.target.dataset.mag
             const id = e.target.dataset.id
