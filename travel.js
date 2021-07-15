@@ -162,7 +162,6 @@ require([
         }
     });
     //moves camera and highlights point on button click
-
     function moveView(longitude, latitude, mag, id) {
         let view = new SceneView({
             container: "viewDiv",
@@ -176,15 +175,12 @@ require([
                 tilt: 10
             }
         });
-
         //highlights the selected earthquake
         points[id].graphic.symbol.outline.width = 4
         points[id].graphic.symbol.outline.color = [64,224,208]
         points[id].graphic.symbol.size = mag * 7
         }
-
         //removes highlight on second click
-
         function removeHighlight () {
             //returns an array of a given object's own property names; keys here = the ids of the earthquakes
             const keys = Object.keys(points)
@@ -219,9 +215,7 @@ require([
 </div>`
     }
 
-
     // Renders a slide with 3 cards as arguments (line 259)
-
     function renderSlide(card1, card2, card3) {
         // Each individual slide's Html layout includes the string portion below.
         let slideHtml = `
@@ -235,12 +229,10 @@ require([
         }
         // When data is passed into the 'card2' parameter, it is rendered in the 
         // second position of the 'card-row'
-
         if (card2) {
             slideHtml += renderCard(card2)
         }
         // When data is passed into the 'card3' parameter, it is rendered in the 
-
         // third position of the 'card-row'
         if (card3) {
             slideHtml += renderCard(card3)
@@ -255,8 +247,7 @@ require([
 }
 
     // erathquake API fetch to get data
-
-    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=3')
+    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
         .then((res) => {
             return res.json();
         })
@@ -264,7 +255,7 @@ require([
 
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
-            for (let index = 0; index < 3; index += 3) {
+            for (let index = 0; index < 60; index += 3) {
                 carousel.innerHTML += renderSlide(data.features[index], data.features[index + 1], data.features[index + 2])
             }
             document.querySelector('.carousel-item').classList.add('active')
@@ -279,8 +270,8 @@ require([
         if (e.target.classList.contains('btn-primary')) {
             const longitude = e.target.dataset.longitude;
             const latitude = e.target.dataset.latitude;
-            const title = e.target.dataset.title
-            const time = e.target.dataset.time
+            const title = e.target.dataset.title;
+            const time = e.target.dataset.time;
             const mag = e.target.dataset.mag
             const id = e.target.dataset.id
 
