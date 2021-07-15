@@ -32,7 +32,7 @@ DOT COLOR       MAGNITUDE of EQ <br>
 Orange          = < 1 <br>
 Blue            = 1 - 2.49 <br>
 Green           = 2.5 - 4.99 <br>
-Red             = > 5 <br>
+Red             = >= 5 <br>
 </pre>
 
 
