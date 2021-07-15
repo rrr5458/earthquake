@@ -162,6 +162,7 @@ require([
         }
     });
     //moves camera and highlights point on button click
+
     function moveView(longitude, latitude, mag, id) {
         let view = new SceneView({
             container: "viewDiv",
@@ -175,12 +176,15 @@ require([
                 tilt: 10
             }
         });
+
         //highlights the selected earthquake
         points[id].graphic.symbol.outline.width = 4
         points[id].graphic.symbol.outline.color = [64,224,208]
         points[id].graphic.symbol.size = mag * 7
         }
+
         //removes highlight on second click
+
         function removeHighlight () {
             //returns an array of a given object's own property names; keys here = the ids of the earthquakes
             const keys = Object.keys(points)
@@ -215,7 +219,9 @@ require([
 </div>`
     }
 
+
     // Renders a slide with 3 cards as arguments (line 259)
+
     function renderSlide(card1, card2, card3) {
         // Each individual slide's Html layout includes the string portion below.
         let slideHtml = `
@@ -229,10 +235,12 @@ require([
         }
         // When data is passed into the 'card2' parameter, it is rendered in the 
         // second position of the 'card-row'
+
         if (card2) {
             slideHtml += renderCard(card2)
         }
         // When data is passed into the 'card3' parameter, it is rendered in the 
+
         // third position of the 'card-row'
         if (card3) {
             slideHtml += renderCard(card3)
@@ -247,6 +255,7 @@ require([
 }
 
     // erathquake API fetch to get data
+
     fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=3')
         .then((res) => {
             return res.json();
