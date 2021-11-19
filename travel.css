@@ -189,6 +189,7 @@ p {
         flex-direction: row;
         max-width: 100%;
         overflow: auto;
+        z-index: 10;
      }
      .card-base {
         min-width: 133px;
