@@ -9,53 +9,16 @@ p {
     font-size: 10px;
 }
 
-.container {
-    display: flex;
-    margin: 0 auto;
-    align-content: center;
-    justify-content: center;
-}
 
 .dashboard-container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     top: 0px;
     left: 0;
     right: 0;
     bottom: 0;
     position: fixed;
-}
-
-/* Header/Page title */
-.header {
-    position: fixed;
-    min-width: 100vw;
-    display: flex;
-    /* margin: 0 auto; */
-    color: white;
-    /* font-family: 'Monda', sans-serif; */
-    /* font-size: 4em; */
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-.header-row {
-    flex-wrap: nowrap;
-    margin: 0 auto;
-    padding-top: 10px;
-}
-
-.header-text {
-    /* margin-top: 10px; */
-    width: auto;
-}
-
-.header-image {
-    align-items: center;
-    justify-content: center;
-    height: 90px;
-    width: 90px;
 }
 
 /* Carousel */
@@ -65,7 +28,7 @@ p {
     flex-direction: column;
     align-items: center;
     background-color: rgb(50, 50, 50);
-    max-width: 21.2%;
+    max-width: 20%;
     z-index: -1;
     overflow: scroll;
 }
@@ -74,6 +37,7 @@ p {
 /* Cards */
 
 .card-base {
+    width: 100%;
 }
 
 .card {
@@ -85,7 +49,7 @@ p {
     transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
     0.3s box-shadow,
     0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
-    max-width: 330px;
+    width: 100%;
 }
 
 .card-img-top {
@@ -132,7 +96,8 @@ p {
 
 .viewDiv {
     background-color: white;
-    width: 90vw;
+    width: 100%;
+    height: 100%;
     background-image: url(EQ\ BG.jpeg);
     background-position: center;
 }
@@ -243,7 +208,6 @@ p {
         max-height: 42px;
     }
     .globe-window {
-        max-height: 500px;
         max-width: 100%;
         width: 100%;
         margin-top: 200px;

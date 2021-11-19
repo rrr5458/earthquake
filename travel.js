@@ -195,7 +195,7 @@ require([
 
 
     function renderCard(data) {
-        return `<div class="card-base col">
+        return `<div class="card-base">
     <div class="card">
         <div class="card-body">
             <h6 class="card-title">${data.properties.title}</h6>
