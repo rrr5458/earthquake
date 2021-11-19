@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Monda:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="travel.css">
 
 </head>
@@ -20,41 +20,20 @@
 <body>
 
     <!-- Header Container  -->
-    <div class="container header header-window">
-        <div class="row header-row">
-            <img class="header-image col" src="./EQ_Icon.png" alt="EQ Tracker Icon">
-            <h1 class="display-1 header-text col-10">Earthquake Tracker</h1>
-            <img class="header-image col" src="./EQ_Icon.png" alt="EQ Tracker Icon">
-        </div>
-    </div>
+    <div class="dashboard-container">
+        <!-- Carousel Container -->
+        <div class="carousel-inner">
 
-    <!-- Carousel Container -->
-    <div class="container carousel carousel-window">
-        <div class="row carousel-row">
-            <div id="inam" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                        <!-- Attach Slides -->
-                        
-                </div>  <!-- Ends Slides -->
-                    
-                    <!-- Carousel Previous Slide Button -->
-                <a data-bs-target="#inam" class="carousel-control-prev" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </a>
-                    <!-- Carousel Next Slide Button -->
-                <a data-bs-target="#inam" class="carousel-control-next" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </a>
-            </div>
-        </div>
-    </div>
 
-    <!-- Esri Map Container -->
-    <div class="container globe-window">
-        <!-- <div class="row globe"> -->
+        </div>
+
+        <!-- Esri Map Container -->
+        <div class="container globe-window">
+            <!-- <div class="row globe"> -->
             <div id="viewDiv" class="viewDiv">
             </div>
-        <!-- </div> -->
+            <!-- </div> -->
+        </div>
     </div>
 
     <!-- JavaScript Bundle with Popper -->
