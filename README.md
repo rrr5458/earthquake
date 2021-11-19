@@ -5,7 +5,15 @@
 Track seismic activity with the "Earthquake Tracker"! 
 <br>
 <br>
-![EQ Tracker Home Page](EQMain.png)
+
+
+
+
+https://user-images.githubusercontent.com/84867084/126733633-d5117489-6abb-429c-b5ce-ac9a52e459e2.mov
+
+
+
+
 <br>
 <br>
 Information from the most recent earthquakes around the world is captured by the U.S. Geological Survey (USGS).  The USGS is the sole science agency for the Department of the Interior. It is sought out by thousands of partners and customers for its natural science expertise and its vast earth and biological data holdings. (https://www.usgs.gov/about/about-us)
