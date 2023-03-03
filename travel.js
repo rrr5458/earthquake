@@ -246,13 +246,15 @@ require([
     return slideHtml
 }
 
-    // erathquake API fetch to get data
-    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-07-07&limit=60')
+    // earthquake API fetch to get data
+    fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=60')
+    
+
         .then((res) => {
             return res.json();
         })
         .then(function (data) {
-
+            console.log("here is the data", data)
             let carousel = document.querySelector('.carousel-inner')
             carousel.innerHTML = ''
             for (let index = 0; index < 60; index += 3) {
